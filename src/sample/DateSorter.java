@@ -1,7 +1,9 @@
 package sample;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
  /**
@@ -30,7 +32,24 @@ public class DateSorter {
      * @return the collection of dates now sorted as per the spec
      */
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
-        // your solution here
-        return null;
+        List<LocalDate> datesWithR = new ArrayList<>();
+        List<LocalDate> datesWithoutR = new ArrayList<>();
+
+        for (LocalDate date : unsortedDates) {
+            String month = date.getMonth().toString();
+            if (month.toLowerCase().contains("r")) {
+                datesWithR.add(date);
+            } else {
+                datesWithoutR.add(date);
+            }
+        }
+
+        datesWithR.sort(Comparator.naturalOrder());
+        datesWithoutR.sort(Comparator.reverseOrder());
+
+        List<LocalDate> sortedDatesList = new ArrayList<>(datesWithR);
+        sortedDatesList.addAll(datesWithoutR);
+
+        return sortedDatesList;
     }
 }
